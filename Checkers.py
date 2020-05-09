@@ -1,18 +1,22 @@
 from tkinter import *
 
+
 # Constants
 BOARD_SIZE = 400
 ROWS_FILLED = 3
 
 DRAUGHTS_IN_ROW = 8
 DRAUGHT_SIZE = BOARD_SIZE/DRAUGHTS_IN_ROW
+
 PIECE_SIZE = int(0.8 * DRAUGHT_SIZE)
+BORDER_SIZE = 5
 
 DARK_DRAUGHT_COLOR = "black"
 LIGHT_DRAUGHT_COLOR = "white"
 
 DARK_PIECE_COLOR = "red"
 LIGHT_PIECE_COLOR = "#cfaf50"
+
 
 # Settings
 game = Tk()
@@ -25,6 +29,7 @@ board.pack()
 
 draughts = Canvas(board, width = BOARD_SIZE, height = BOARD_SIZE)
 draughts.pack(fill = 'both')
+
 
 # Draw an 8×8 draughts board
 DRAUGHT_COLOR = DARK_DRAUGHT_COLOR
@@ -61,29 +66,33 @@ draw_piece = lambda x0,y0,x1,y1,color:\
 draw_dark_piece = lambda x0,y0,x1,y1:\
                   draw_piece(x0, y0, x1, y1, DARK_PIECE_COLOR)
 
+dark_coords = lambda row,index,border: (
+    (2*index + row%2)*DRAUGHT_SIZE + PIECE_SIZE - border*BORDER_SIZE,
+                  row*DRAUGHT_SIZE + PIECE_SIZE - border*BORDER_SIZE,
+    (2*i + 1 + row%2)*DRAUGHT_SIZE - PIECE_SIZE + border*BORDER_SIZE,
+            (row + 1)*DRAUGHT_SIZE - PIECE_SIZE + border*BORDER_SIZE,
+)
+
 draw_light_piece = lambda x0,y0,x1,y1:\
                    draw_piece(x0, y0, x1, y1, LIGHT_PIECE_COLOR)
 
+light_coords = lambda row,index,border: (
+(2*index + 1 - row%2)*DRAUGHT_SIZE + PIECE_SIZE - border*BORDER_SIZE,
+ BOARD_SIZE - (row+1)*DRAUGHT_SIZE + PIECE_SIZE - border*BORDER_SIZE,
+    (2*i + 2 - row%2)*DRAUGHT_SIZE - PIECE_SIZE + border*BORDER_SIZE,
+     BOARD_SIZE - row*DRAUGHT_SIZE - PIECE_SIZE + border*BORDER_SIZE,
+)
 
-for i in range(ROWS_FILLED + 1):
-    ## --- Draw the dark pieces --- ##
-    row1 = draw_dark_piece(40+100*i,40,10+100*i,10)
-    borda1 = draw_dark_piece(35+100*i,35,15+100*i,15)
-    
-    row2 = draw_dark_piece(90+100*i,90,60+100*i,60)
-    borda1 = draw_dark_piece(85+100*i,85,65+100*i,65)
-    
-    row3 = draw_dark_piece(40+100*i,140,10+100*i,110)
-    borda1 = draw_dark_piece(35+100*i,135,15+100*i,115)
+for i in range(int(DRAUGHTS_IN_ROW/2)):
+    for row in  range(ROWS_FILLED):
+        ## --- Draw the dark pieces --- ##
+        dark_piece = draw_dark_piece(*dark_coords(row,i,0))
+        dark_border = draw_dark_piece(*dark_coords(row,i,1))
 
-    ## --- Draw the light pieces --- ##
-    row1 = draw_light_piece(90+100*i,390,60+100*i,360)
-    borda1 = draw_light_piece(85+100*i,385,65+100*i,365)
-    
-    row2 = draw_light_piece(40+100*i,340,10+100*i,310)
-    borda2 = draw_light_piece(35+100*i,335,15+100*i,315)
-    
-    row3 = draw_light_piece(90+100*i,290,60+100*i,260)
-    borda3 = draw_light_piece(85+100*i,285,65+100*i,265)
+        ## --- Draw the light pieces --- ##
+        light_piece = draw_light_piece(*light_coords(row,i,0))
+        light_border = draw_light_piece(*light_coords(row,i,1))
 
+
+# Open the window
 game.mainloop()
