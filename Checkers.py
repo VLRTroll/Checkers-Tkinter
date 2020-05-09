@@ -1,45 +1,52 @@
 from tkinter import *
 
-jogo = Tk()
-jogo.title("Damas")
-jogo.geometry('400x400+100+100')
+# Constants
+BOARD_SIZE = 400
+DRAUGHTS_COUNT = 8
+DRAUGHT_SIZE = BOARD_SIZE/DRAUGHTS_COUNT
 
-tabuleiro = Frame(jogo)
-tabuleiro.pack()
+# Settings
+game = Tk()
+game.title("Checkers")
+game.geometry('400x400+100+100')
+game.resizable(0,0)
 
-casas = Canvas(tabuleiro, width = 400, height = 400)
-casas.pack(fill = 'both')
+board = Frame(game)
+board.pack()
 
-#Desenho das casas do tabuleiro
-for linha in range(0,8):
-    for coluna in range(0,8):
-        if (linha + coluna)%2 == 0:
-            casa = casas.create_rectangle(linha*50,coluna*50,\
-                                          (linha*50)+50,(coluna*50)+50,\
-                                          fill = "white", outline = 'white')
-        else:
-            casa = casas.create_rectangle(linha*50,coluna*50,\
-                                          (linha*50)+50,(coluna*50)+50,\
-                                          fill = "black", outline = 'black')
+draughts = Canvas(board, width = BOARD_SIZE, height = BOARD_SIZE)
+draughts.pack(fill = 'both')
 
-#Impressão das Peças Vermelhas
+# Draw an 8×8 draughts board
+
+DRAUGHT_COLOR = 'black'
+
+for row in range(DRAUGHTS_COUNT + 1):
+    for column in range(DRAUGHTS_COUNT + 1):
+        DRAUGHT_COLOR = 'white' if DRAUGHT_COLOR == 'black' else 'black'
+        
+        draught = draughts.create_rectangle(row*DRAUGHT_SIZE,column*DRAUGHT_SIZE,\
+                                            (row*DRAUGHT_SIZE)+DRAUGHT_SIZE,(column*DRAUGHT_SIZE)+DRAUGHT_SIZE,\
+                                            fill = DRAUGHT_COLOR, outline = DRAUGHT_COLOR)
+
+# Impressão das Peças Vermelhas
 for i in range(0,4):
     #Dimensão da imagem e distância entre a borda da imagem e o inicio da mesma
-    linha1 = casas.create_oval(40+100*i,40,10+100*i,10,fill="red")
-    borda1 = casas.create_oval(35+100*i,35,15+100*i,15)
-    linha2 = casas.create_oval(90+100*i,90,60+100*i,60,outline=None,fill="red")
-    borda1 = casas.create_oval(85+100*i,85,65+100*i,65)
-    linha3 = casas.create_oval(40+100*i,140,10+100*i,110,outline=None,fill="red")
-    borda1 = casas.create_oval(35+100*i,135,15+100*i,115)
+    row1 = draughts.create_oval(40+100*i,40,10+100*i,10,fill="red")
+    borda1 = draughts.create_oval(35+100*i,35,15+100*i,15)
+    row2 = draughts.create_oval(90+100*i,90,60+100*i,60,outline=None,fill="red")
+    borda1 = draughts.create_oval(85+100*i,85,65+100*i,65)
+    row3 = draughts.create_oval(40+100*i,140,10+100*i,110,outline=None,fill="red")
+    borda1 = draughts.create_oval(35+100*i,135,15+100*i,115)
 
-#Impressão das Peças Marrons
+# Impressão das Peças Marrons
 for i in range(0,4):
     #Dimensão da imagem e distância entre a borda da imagem e o inicio da mesma
-    linha1 = casas.create_oval(90+100*i,390,60+100*i,360,fill="#cfaf50")
-    borda1 = casas.create_oval(85+100*i,385,65+100*i,365)
-    linha2 = casas.create_oval(40+100*i,340,10+100*i,310,fill="#cfaf50")
-    borda2 = casas.create_oval(35+100*i,335,15+100*i,315)
-    linha3 = casas.create_oval(90+100*i,290,60+100*i,260,fill="#cfaf50")
-    borda3 = casas.create_oval(85+100*i,285,65+100*i,265)
+    row1 = draughts.create_oval(90+100*i,390,60+100*i,360,fill="#cfaf50")
+    borda1 = draughts.create_oval(85+100*i,385,65+100*i,365)
+    row2 = draughts.create_oval(40+100*i,340,10+100*i,310,fill="#cfaf50")
+    borda2 = draughts.create_oval(35+100*i,335,15+100*i,315)
+    row3 = draughts.create_oval(90+100*i,290,60+100*i,260,fill="#cfaf50")
+    borda3 = draughts.create_oval(85+100*i,285,65+100*i,265)
 
-jogo.mainloop()
+game.mainloop()
