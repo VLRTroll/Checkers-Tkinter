@@ -6,9 +6,9 @@ With the Python script it's possible to draw customizable checkers/draughts boar
 
 Below there's a few board examples you can try:
 <p align="center">
-  <img src="assets/board1.PNG" width="250px" />
-  <img src="assets/board2.PNG" width="250px" />
   <img src="assets/board3.PNG" width="250px" />
+  <img src="assets/board2.PNG" width="250px" />
+  <img src="assets/board1.PNG" width="250px" />
 </p>
 
 ## Tkinter Elements Used
