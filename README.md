@@ -14,3 +14,8 @@ Below there's a few board examples you can try:
 ## Tkinter Elements Used
 - Non-resizable frame
 - Canvas: rectangle and oval
+
+
+---
+
+<p align="center">Made with ❤️ by <strong>VLRTroll :alien: </p>
